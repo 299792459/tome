@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>凉风有信</title>
+</head>
+<body>
+
+    请输入您的昵称：<input type="text" id="name" placeholder="请输入您的昵称"><br />
+    请在此输入您想说的话：<textarea placeholder="评论长度不能大于200也不能为空" id="content"></textarea>
+    <br />
+    <button type="button" onclick="addLetter()">发表评论</button>
+    <button type="button" onclick="getLetters()">查看评论</button>
+
+<!-- Modal -->
+<script>
+    $(document).ready(function () {
+        $.post("/getLetters", {
+            articleId: articleID
+        }, function (data, status) {
+            console.log(data);
+            if(data){
+                var appendHtml='';
+                for(var i in data){
+                    var comments=data[i];
+                    appendHtml=appendHtml+'<div class="card">\n' +
+                }
+                $("#commentsLists").append(appendHtml);
+            }
+        });
+    });
+
+
+    //添加评论
+    function addLetter() {
+        var name = $("#name").val();    // 获取id为name的<input>框数据
+        var content = $("#content").val();    // 获取id为content的<input>框数据
+        var time=new Date();
+        time.setTime(time.getTime());
+        // 判断
+        if (name.length == 0) {
+            $("#name").tips({msg: "请输入昵称。"});
+            return;
+        }
+        if (content.length == 0) {
+            $("#content").tips({msg: "请输入内容。"});
+            return;
+        }
+        // Ajax提交数据
+        $.ajax({
+            url: "/addLetter",    // 提交到controller的url路径
+            type: "post",    // 提交方式
+            data: {"name": name, "content": content,"time":time.toDateString()},  // data为String类型，必须为 Key/Value 格式。
+        });
+    };
+
+</script>
+<script>
+    readUserInfo();
+</script>
+</body>
+</html>
