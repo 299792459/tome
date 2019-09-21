@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,20 @@ public class CommentRestController {
     @Autowired
     private ArticleCommentService articleCommentService;
 
+    //进来直接进入主页
+    @RequestMapping(value = "")
+    @ResponseBody
+    public ModelAndView  intoindex(){
+
+        ModelAndView mv = new ModelAndView("NightWind.html");
+        return mv;
+    }
+    //进来直接进入主页
+    @RequestMapping(value = "/testlinux")
+    @ResponseBody
+    public String  testlinux(){
+        return "test sucess!测试成功linux环境部署";
+    }
     //添加评论
     @RequestMapping(value = "/addLetter")
     @ResponseBody
