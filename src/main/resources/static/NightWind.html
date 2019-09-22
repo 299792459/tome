@@ -1,62 +1,153 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>凉风有信</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+
+    <!-- 引入jQuery -->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- 引入bootStrap -->
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
+
+    <!-- 引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
+
 <body>
+<div id="app">
+    <form @submit="preventSubmit">
+        <div class="form-group">
+            <label>请输入您的昵称：</label>
+            <input class="form-control" type="text" v-model="userName" placeholder="请输入您的昵称">
+            <span v-show="flag1" style="color: red;font-weight: 700">{{errMsg1}}</span>
+        </div>
+        <div class="form-group">
+            <label>请在此输入您想说的话：</label>
+            <textarea class="form-control" v-model="content" placeholder="评论长度不能大于200也不能为空"></textarea>
+            <span v-show="flag2" style="color: red;font-weight: 700">{{errMsg2}}</span>
+        </div>
+        <button class="btn btn-default" @click="addLetter">发表评论</button>
+        <button class="btn btn-default" @click="getLetters">查看评论</button>
 
-    请输入您的昵称：<input type="text" id="name" placeholder="请输入您的昵称"><br />
-    请在此输入您想说的话：<textarea placeholder="评论长度不能大于200也不能为空" id="content"></textarea>
-    <br />
-    <button type="button" onclick="addLetter()">发表评论</button>
-    <button type="button" onclick="getLetters()">查看评论</button>
+    </form>
+    <!-- 展示评论 -->
+    <div v-if="flag3">
+        <table class="table table-striped">
+            <tr>
+                <th>name</th>
+                <th>content</th>
+                <th>time</th>
+            </tr>
+            <tr v-for="(item, index) in comments" :key="index">
+                <td>{{item.name}}</td>
+                <td>{{item.content}}</td>
+                <td>{{item.time}}</td>
+            </tr>
+        </table>
+    </div>
 
-<!-- Modal -->
-<script>
-    $(document).ready(function () {
-        $.post("/getLetters", {
-            articleId: articleID
-        }, function (data, status) {
-            console.log(data);
-            if(data){
-                var appendHtml='';
-                for(var i in data){
-                    var comments=data[i];
-                    appendHtml=appendHtml+'<div class="card">\n' +
-                }
-                $("#commentsLists").append(appendHtml);
-            }
-        });
-    });
-
-
-    //添加评论
-    function addLetter() {
-        var name = $("#name").val();    // 获取id为name的<input>框数据
-        var content = $("#content").val();    // 获取id为content的<input>框数据
-        var time=new Date();
-        time.setTime(time.getTime());
-        // 判断
-        if (name.length == 0) {
-            $("#name").tips({msg: "请输入昵称。"});
-            return;
-        }
-        if (content.length == 0) {
-            $("#content").tips({msg: "请输入内容。"});
-            return;
-        }
-        // Ajax提交数据
-        $.ajax({
-            url: "/addLetter",    // 提交到controller的url路径
-            type: "post",    // 提交方式
-            data: {"name": name, "content": content,"time":time.toDateString()},  // data为String类型，必须为 Key/Value 格式。
-        });
-    };
-
-</script>
-<script>
-    readUserInfo();
-</script>
+</div>
 </body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            flag1: false,
+            flag2: false,
+            flag3: false,
+            errMsg1: "请输入昵称",
+            errMsg2: "请输入内容",
+            userName: '', // 用户名
+            content: '', // 内容
+            time: '', // 时间
+            // comment: {}, // 评论对象
+            comments: [], // 评论集合
+        },
+        methods: {
+            // 判断名称以及内容是否为空
+            judgeNull: function () {
+                if (!this.userName) {
+                    this.flag1 = true;
+                } else {
+                    this.flag1 = false;
+                }
+                if (!this.content) {
+                    this.flag2 = true;
+                } else {
+                    this.flag2 = false;
+                }
+            },
+
+            // 获取当前时间
+            getTime: function () {
+                this.time = new Date;
+                let year = this.time.getFullYear();
+                let month = this.time.getMonth() + 1;
+                let day = this.time.getDate();
+                let hour=this.time.getHours();
+                let mintue=this.time.getMinutes();
+                let second=this.time.getSeconds();
+                this.time = year + '.' + month + '.' +day+'.' +hour+'.' +mintue+'.' +second;
+                console.log(this.time);
+            },
+
+            getLetters: function () {
+                axios.get('/getLetters')
+                    .then(response => (this.comments = response.data))
+            .catch(function (error) {
+                    console.log("获取失败!");
+                })
+                this.flag3 = true;
+            },
+
+            addLetter: function () {
+                // 添加评论
+                this.getTime();
+                this.judgeNull();
+                console.log(this.userName);
+                console.log(this.content);
+                if (this.userName && this.content) {
+                    console.log(1);
+                    axios.post('/addLetter', {
+                        userName: this.userName,
+                        content: this.content,
+                        time: this.time
+                    })
+                        .then(function (response) {
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                    this.userName = '';
+                    this.content = '';
+                    this.getLetters();
+                }
+            },
+            preventSubmit: function (e) {
+                e.preventDefault();
+            }
+        },
+        mounted() {
+
+
+        },
+
+    })
+</script>
+
 </html>

@@ -6,10 +6,7 @@ import com.nightwind.tome.Service.ArticleCommentService;
 import com.nightwind.tome.bean.ArticleComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,23 +38,21 @@ public class CommentRestController {
         ModelAndView mv = new ModelAndView("NightWind.html");
         return mv;
     }
-    //进来直接进入主页
+    //测试页
     @RequestMapping(value = "/testlinux")
     @ResponseBody
     public String  testlinux(){
         return "test sucess!测试成功linux环境部署";
     }
+
     //添加评论
     @RequestMapping(value = "/addLetter")
-    @ResponseBody
-    public void addComments(
-            @RequestParam(value = "name", required = true) String user,
-            @RequestParam(value = "content", required = true) String content,
-            @RequestParam(value = "time", required = true) String time,
-            HttpServletRequest request,
-            HttpServletResponse response)
+
+    public void addComments(@RequestBody Map map)
     {
-        ArticleComment articleComment=new ArticleComment(user,content,time);
+        System.out.println((String)map.get("userName"));
+        ArticleComment articleComment=new ArticleComment((String)map.get("userName"),(String)map.get("content"),(String)map.get("time"));
+        //System.out.println(articleComment);
         articleCommentService.addArticleComment(articleComment);
         //插入以后要显示所有的评论
         getComments();
