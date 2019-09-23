@@ -33,12 +33,24 @@ public class LetterBean {
     {
 
     }
-    public LetterBean(int userid, String lettercontent, String lettertime, String letterurl, int replyid) {
+
+    public LetterBean(int letterid, int userid, String lettercontent, String lettertime, String letterurl) {
+        this.letterid = letterid;
         this.userid = userid;
         this.lettercontent = lettercontent;
         this.lettertime = lettertime;
         this.letterurl = letterurl;
+    }
 
+    public LetterBean(int letterid, int userid, String lettercontent, String lettertime,
+                      String letterurl, List<CommentBean> letterCommentBean, List<UserBean> letterUserBean) {
+        this.letterid = letterid;
+        this.userid = userid;
+        this.lettercontent = lettercontent;
+        this.lettertime = lettertime;
+        this.letterurl = letterurl;
+        this.letterCommentBean = letterCommentBean;
+        this.letterUserBean = letterUserBean;
     }
 
     public int getUserid() {

@@ -1,6 +1,8 @@
-package com.nightwind.tome.Service;
+package com.nightwind.tome.service;
 
 import com.nightwind.tome.bean.CommentBean;
+import com.nightwind.tome.bean.getAllCommentsByLetterIdBean;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,8 +14,9 @@ import java.util.List;
  * @create 2019/9/23 0023
  * @since 1.0.0
  */
+@Service
 public interface CommentService {
 
-    List<CommentBean> getAllcommentsbyLetterId(int letterid);
+    List<getAllCommentsByLetterIdBean> getAllCommentsByLetterId(int replyletterid);
     void addComment(CommentBean commentBean);
 }

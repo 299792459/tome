@@ -20,6 +20,13 @@ public class UserBean {
     List<LetterBean> userLetterBean;
     List<CommentBean> userCommentBean;
 
+    public UserBean(int userid, String username, String userpwd, String annoyname) {
+        this.userid = userid;
+        this.username = username;
+        this.userpwd = userpwd;
+        this.annoyname = annoyname;
+    }
+
     public UserBean()
     {}
     public UserBean(int userid, String username, String userpwd, String annoyname, List<LetterBean> userLetterBean, List<CommentBean> userCommentBean) {

@@ -19,18 +19,22 @@ import java.util.List;
 public interface CommentMapper {
 
     //显示当前留言下所有评论
-    @Select(" SELECT annoyname,lettercontent,lettertime,replyuserid" +
-            " FROM user,letter,comment" +
-            " WHERE user.userid=letter.userid AND user.userid=comment.userid AND replyletterid=#{replyletterid}")
+    @Select(" SELECT *" +
+            " FROM comment" +
+            " WHERE replyletterid=#{replyletterid}")
     @Results({
-            @Result(property = "annoyname", column = "annoyname", javaType = String.class),
-            @Result(property = "lettercontent", column = "lettercontent", javaType = String.class),
-            @Result(property = "lettertime", column = "lettertime", javaType = String.class)
+            @Result(property = "commentid", column = "commentid", javaType = int.class),
+            @Result(property = "userid", column = "userid", javaType = int.class),
+            @Result(property = "commentcontent", column = "commentcontent", javaType = String.class),
+            @Result(property = "commenttime", column = "commenttime", javaType = String.class),
+            @Result(property = "replyletterid", column = "replyletterid", javaType = int.class),
+            @Result(property = "replyuserid", column = "replyuserid", javaType = int.class)
     })
-    List<CommentBean> getAllcommentsbyLetterId(int letterid);
+    List<CommentBean> getAllCommentsByLetterId(@Param("replyletterid")int replyletterid);
 
 
     //发表一条评论
-    @Insert("INSERT INTO letter (name,content,time) VALUES(#{name}, #{content}, #{time})")
+    @Insert("INSERT into `comment`(userid,commentcontent,commenttime,replyletterid,replyuserid) " +
+            "VALUES(#{userid}, #{commentcontent}, #{commenttime}, #{replyletterid}, #{replyuserid})")
     void addComment(CommentBean onecomment);
 }

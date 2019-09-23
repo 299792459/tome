@@ -1,8 +1,9 @@
-package com.nightwind.tome.Service.ServiceImpl;
+package com.nightwind.tome.service.ServiceImpl;
 
 
+import com.nightwind.tome.bean.getAllLettersByUrlBean;
 import com.nightwind.tome.mapper.LetterMapper;
-import com.nightwind.tome.Service.LetterService;
+import com.nightwind.tome.service.LetterService;
 import com.nightwind.tome.bean.LetterBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,9 @@ public class LetterServiceImpl implements LetterService {
 
 
     @Override
-    public List<LetterBean> getAllLettersByurl(String url) {
+    public List<getAllLettersByUrlBean> getAllLettersByurl(String url) {
 
-        return letterMapper.getAllLettersByurl(url);
+        return letterMapper.getAllLettersByUrl(url);
     }
 
     @Override

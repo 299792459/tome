@@ -1,7 +1,7 @@
-package com.nightwind.tome.Service;
+package com.nightwind.tome.service;
 
-import com.nightwind.tome.bean.CommentBean;
 import com.nightwind.tome.bean.LetterBean;
+import com.nightwind.tome.bean.getAllLettersByUrlBean;
 import org.springframework.stereotype.Service;
 
 
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 public interface LetterService {
-    List<LetterBean> getAllLettersByurl(String url);
+    List<getAllLettersByUrlBean> getAllLettersByurl(String url);
 
     void addLetter(LetterBean letterBean);
 }

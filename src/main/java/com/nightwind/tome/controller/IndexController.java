@@ -1,19 +1,17 @@
 package com.nightwind.tome.controller;
 
-import com.nightwind.tome.Service.CommentService;
-import com.nightwind.tome.Service.LetterService;
-import com.nightwind.tome.bean.CommentBean;
-import com.nightwind.tome.bean.LetterBean;
+import com.nightwind.tome.bean.*;
+import com.nightwind.tome.service.CommentService;
+import com.nightwind.tome.service.LetterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -48,69 +46,70 @@ public class IndexController {
                 +"://" + request.getServerName()//服务器地址
                 + ":" + request.getServerPort() //端口号
                 + request.getContextPath() //应用名称，如果应用名称为
-                + request.getServletPath() //请求的相对url
-                + "?" + request.getQueryString(); //请求参数
+                + request.getServletPath();//请求的相对url
+                //+ "?" + request.getQueryString(); //请求参数
         return currenturl;
     }
 
     @RequestMapping(value = "")
     @ResponseBody
     public ModelAndView intoindex(){
-        currenturl=getCurrenturl();
+
         ModelAndView mv = new ModelAndView("NightWind.html");
         return mv;
     }
 
-    //点击登录
-    @RequestMapping(value = "/Login")
-    @ResponseBody
-    public ModelAndView Login()
-    {
-        ModelAndView mv = new ModelAndView("Login.html");
-        return mv;
-    }
-
-    //点击注册
-    @RequestMapping(value = "/Regist")
-    @ResponseBody
-    public ModelAndView Regist()
-    {
-        ModelAndView mv = new ModelAndView("Regist.html");
-        return mv;
-    }
 
     //点击查询此url下所有留言
     @RequestMapping(value = "/getAllLettersByurl")
     @ResponseBody
-    public List<LetterBean> getAllLettersByurl(String url)
+    public List<getAllLettersByUrlBean> getAllLettersByurl()
     {
-        return letterService.getAllLettersByurl("111");
+
+        currenturl=getCurrenturl();
+        return letterService.getAllLettersByurl(currenturl);
 
     }
 
     //点击查询此url下所有留言对应的评论
     @RequestMapping(value = "/getAllCommentsbyLetterId")
     @ResponseBody
-    public List<CommentBean> getAllCommentsbyLetterId(int letterid)
+    public List<getAllCommentsByLetterIdBean> getAllCommentsbyLetterId(int letterid)
     {
-        return commentService.getAllcommentsbyLetterId(letterid);
 
+        return commentService.getAllCommentsByLetterId(letterid);
     }
 
     //点击发表留言
     @RequestMapping(value = "/addLetter")
-    @ResponseBody
-    public void addLetter(LetterBean letterBean)
+    //@ResponseBody
+    public void addLetter(@RequestBody Map map)
     {
+        LetterBean letterBean =new LetterBean();
+        //装载数据
+        letterBean.setUserid((int)map.get("userid"));
+        letterBean.setLettercontent((String)map.get("lettercontent"));
+        letterBean.setLettertime((String)map.get("lettertime"));
+        currenturl=getCurrenturl();
+        letterBean.setLetterurl(currenturl);
         letterService.addLetter(letterBean);
     }
 
 
     //点击发表评论
     @RequestMapping(value = "/addComment")
-    @ResponseBody
-    public void addComment(CommentBean commentBean)
+    //@ResponseBody
+    public void addComment(@RequestBody Map map)
     {
+
+        CommentBean commentBean =new CommentBean();
+        //装载数据
+        commentBean.setUserid((int)map.get("userid"));
+        commentBean.setCommentcontent((String)map.get("content"));
+        commentBean.setCommenttime((String)map.get("commenttime"));
+        commentBean.setReplyletterid((int)map.get("replyletterid"));
+        commentBean.setReplyuserid((int)map.get("replyuserid"));
+
         commentService.addComment(commentBean);
 
     }
