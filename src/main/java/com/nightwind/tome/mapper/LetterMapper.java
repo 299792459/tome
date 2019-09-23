@@ -33,7 +33,7 @@ public interface LetterMapper {
     @Results({
             @Result(property = "annoyname", column = "annoyname", javaType = String.class),
             @Result(property = "lettercontent",  column = "lettercontent", javaType = String.class),
-            @Result(property = "lettertime", column = "lettercontent", javaType = int.class)
+            @Result(property = "lettertime", column = "lettertime", javaType = String.class)
     })
     List<getAllLettersByUrlBean> getAllLettersByUrl(@Param("letterurl") String letterurl);
 

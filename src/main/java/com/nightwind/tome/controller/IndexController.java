@@ -67,6 +67,7 @@ public class IndexController {
     {
 
         currenturl=getCurrenturl();
+        System.out.println(currenturl);
         return letterService.getAllLettersByurl(currenturl);
 
     }
