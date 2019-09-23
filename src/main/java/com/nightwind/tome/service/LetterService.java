@@ -2,6 +2,7 @@ package com.nightwind.tome.service;
 
 import com.nightwind.tome.bean.LetterBean;
 import com.nightwind.tome.bean.getAllLettersByUrlBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 
@@ -20,4 +21,6 @@ public interface LetterService {
     List<getAllLettersByUrlBean> getAllLettersByurl(String url);
 
     void addLetter(LetterBean letterBean);
+
+    List<Integer> getLettersIdByUrl(String letterurl);
 }

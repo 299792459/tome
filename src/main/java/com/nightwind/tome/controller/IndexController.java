@@ -74,10 +74,17 @@ public class IndexController {
     //点击查询此url下所有留言对应的评论
     @RequestMapping(value = "/getAllCommentsbyLetterId")
     @ResponseBody
-    public List<getAllCommentsByLetterIdBean> getAllCommentsbyLetterId(int letterid)
+    public Map<String,List<getAllCommentsByLetterIdBean>> getAllCommentsbyLetterId()
     {
+        Map map=null;
+        currenturl=getCurrenturl();
+        List<Integer> lettersidlist=letterService.getLettersIdByUrl(currenturl);
+        for(int i=0;i<lettersidlist.size();i++)
+        {
+            map.put(i+"",commentService.getAllCommentsByLetterId(lettersidlist.get(i).intValue()));
+        }
 
-        return commentService.getAllCommentsByLetterId(letterid);
+        return map;
     }
 
     //点击发表留言

@@ -19,4 +19,5 @@ public interface CommentService {
 
     List<getAllCommentsByLetterIdBean> getAllCommentsByLetterId(int replyletterid);
     void addComment(CommentBean commentBean);
+
 }

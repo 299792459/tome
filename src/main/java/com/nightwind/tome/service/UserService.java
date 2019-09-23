@@ -19,6 +19,6 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    List<UserBean> getUserByUserId(@Param("userid") int userid);
+    List<UserBean> getUserByUserId(int userid);
 
 }

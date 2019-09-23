@@ -40,4 +40,9 @@ public class LetterServiceImpl implements LetterService {
         letterMapper.addLetter(letterBean);
     }
 
+    public List<Integer> getLettersIdByUrl(String letterurl){
+
+        return letterMapper.getLettersIdByUrl(letterurl);
+    }
+
 }

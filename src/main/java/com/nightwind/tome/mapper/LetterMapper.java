@@ -37,6 +37,15 @@ public interface LetterMapper {
     })
     List<getAllLettersByUrlBean> getAllLettersByUrl(@Param("letterurl") String letterurl);
 
+    //通过url查找所有letterid装在list里面
+    @Select(" SELECT letterid" +
+            " FROM letter" +
+            " WHERE letterurl=#{letterurl}")
+    @Results({
+            @Result(property = "letterid", column = "letterid", javaType = Integer.class),
+    })
+    List<Integer> getLettersIdByUrl(@Param("letterurl") String letterurl);
+
 
 
     //发表一条留言
