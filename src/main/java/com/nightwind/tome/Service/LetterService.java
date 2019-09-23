@@ -1,6 +1,7 @@
 package com.nightwind.tome.Service;
 
-import com.nightwind.tome.bean.ArticleComment;
+import com.nightwind.tome.bean.CommentBean;
+import com.nightwind.tome.bean.LetterBean;
 import org.springframework.stereotype.Service;
 
 
@@ -15,7 +16,8 @@ import java.util.List;
  * @since StaticConfigParam.0.0
  */
 @Service
-public interface  ArticleCommentService {
-    List<ArticleComment> getArticleComment();
-    void addArticleComment(ArticleComment articleComment);
+public interface LetterService {
+    List<LetterBean> getAllLettersByurl(String url);
+
+    void addLetter(LetterBean letterBean);
 }
