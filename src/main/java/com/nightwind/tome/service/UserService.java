@@ -1,9 +1,6 @@
 package com.nightwind.tome.service;
 
 import com.nightwind.tome.bean.UserBean;
-import com.nightwind.tome.mapper.UserMapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,15 +16,16 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    //通过id查询user
-    List<UserBean> getUserByUserId(int userid);
+        //通过id查询user
+        List<UserBean> getUserByUserId(int userid);
 
 
 
-    public int getPwd(UserBean userBean);
+     int getPwd(UserBean userBean);
 
-    public int checkUserName(UserBean userBean);
+     int checkUserName(UserBean userBean);
 
+     int getIdByUserName(String username);
 
-    public void regist(UserBean userBean);
+     void regist(UserBean userBean);
 }

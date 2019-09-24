@@ -3,7 +3,7 @@ package com.nightwind.tome.service.ServiceImpl;
 import com.nightwind.tome.bean.UserBean;
 import com.nightwind.tome.mapper.UserMapper;
 import com.nightwind.tome.service.UserService;
-import org.apache.ibatis.annotations.Param;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +39,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int checkUserName(UserBean userBean) {
         return userMapper.checkUserName(userBean);
+    }
+
+    @Override
+    public int getIdByUserName(String username) {
+        return userMapper.getIdByUserName(username);
     }
 
     @Override

@@ -18,9 +18,8 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    //通过userid查到对应的名字
-
-    @Select(" SELECT annoyname" +
+    //通过userid查到对应的user
+    @Select(" SELECT *" +
             " FROM user" +
             " WHERE userid=#{userid}")
     @Results({
@@ -47,8 +46,17 @@ public interface UserMapper {
     })
     int getPwd(UserBean userBean);
 
-    // 向数据库注册新用户
+    //注册
     @Insert("INSERT INTO user (username,userpwd,annoyname) VALUES(#{username},#{userpwd},#{annoyname})")
     void regist(UserBean userBean);
 
+
+    // 向根据用户名查id
+    @Select(" SELECT userid" +
+            " FROM user" +
+            " WHERE username=#{username}")
+    @Results({
+            @Result(property = "userid",column = "userid",javaType = int.class)
+    })
+    int getIdByUserName(@Param("username") String username);
 }

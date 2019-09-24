@@ -3,6 +3,9 @@ package com.nightwind.tome.controller;
 import com.nightwind.tome.bean.*;
 import com.nightwind.tome.service.CommentService;
 import com.nightwind.tome.service.LetterService;
+import com.nightwind.tome.service.ServiceImpl.UserServiceImpl;
+import com.nightwind.tome.service.UserService;
+import com.sun.javafx.collections.MappingChange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
@@ -30,7 +33,10 @@ public class IndexController {
     HttpServletRequest request; //这里可以获取到request
     @Autowired
     LetterService letterService;
+    @Autowired
     CommentService commentService;
+    @Autowired
+    UserService userService;
     //当前地址
     String currenturl;
 
@@ -92,16 +98,27 @@ public class IndexController {
 
     //点击发表留言
     @RequestMapping(value = "/addLetter")
-    //@ResponseBody
-    public void addLetter(@RequestBody Map map)
+    //@ResponseBody  @RequestBody Map map
+    public void addLetter()
     {
+        //LetterBean letterBean =new LetterBean();
+        //装载数据
+        //letterBean.setUserid();
+        //letterBean.setLettercontent((String)map.get("lettercontent"));
+        //letterBean.setLettertime((String)map.get("lettertime"));
+        //currenturl=getCurrenturl();
+        //letterBean.setLetterurl(currenturl);
+        //letterService.addLetter(letterBean);
+
         LetterBean letterBean =new LetterBean();
         //装载数据
-        letterBean.setUserid((int)map.get("userid"));
-        letterBean.setLettercontent((String)map.get("lettercontent"));
-        letterBean.setLettertime((String)map.get("lettertime"));
-        currenturl=getCurrenturl();
-        letterBean.setLetterurl(currenturl);
+        int id= userService.getIdByUserName("km");
+        System.out.println(id);
+        letterBean.setUserid(id);
+        letterBean.setLettercontent("lettercontent");
+        letterBean.setLettertime("lettertime");
+        //currenturl=getCurrenturl();
+        letterBean.setLetterurl("currenturl");
         letterService.addLetter(letterBean);
     }
 
