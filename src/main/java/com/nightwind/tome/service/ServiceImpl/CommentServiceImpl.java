@@ -28,6 +28,7 @@ public class CommentServiceImpl implements CommentService {
     public List<getAllCommentsByLetterIdBean> getAllCommentsByLetterId(int replyletterid) {
         List<CommentBean> list=commentMapper.getAllCommentsByLetterId(replyletterid);
         List<getAllCommentsByLetterIdBean> listnew=null;
+        //这里是拼接返回值对象，放到list里面
         for(int i=0;i<list.size();i++)
         {
             listnew.get(i).setCommentcontent(list.get(i).getCommentcontent());

@@ -33,4 +33,15 @@ public class LoginController {
     //在客户端判断，如果为空则是登陆失败，不为空则把整个值存储起来。
 
 
+    @RequestMapping("/checkExist")
+    @ResponseBody
+    public boolean checkExist(@RequestBody Map map)
+    {
+        UserBean userBean=new UserBean();
+        userBean.setUsername((String) map.get("username"));
+        userBean.setUserpwd((String)map.get("userpwd"));
+        System.out.println(userService.getPwd(userBean));
+        return userService.getPwd(userBean)==1;
+
+    }
 }

@@ -31,5 +31,19 @@ public class UserServiceImpl implements UserService {
     //public String addUser(UserBean userBean){
     //}
 
+    @Override
+    public int getPwd(UserBean userBean) {
+        return userMapper.getPwd(userBean);
+    }
+
+    @Override
+    public int checkUserName(UserBean userBean) {
+        return userMapper.checkUserName(userBean);
+    }
+
+    @Override
+    public void regist(UserBean userBean) {
+        userMapper.regist(userBean);
+    }
 
 }

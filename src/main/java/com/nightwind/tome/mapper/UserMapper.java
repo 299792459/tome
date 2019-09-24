@@ -33,5 +33,22 @@ public interface UserMapper {
 
 
 
+    //查询用户名是否存在
+    @Select("SELECT count(*) FROM user WHERE username = #{username} ")
+    @Results({
+            @Result(property = "count", column = "count(*)", javaType = int.class)
+    })
+    int checkUserName(UserBean userBean);
+
+    // 根据用户名查询密码
+    @Select("SELECT count(*) FROM user WHERE username = #{username} AND userpwd = #{userpwd}")
+    @Results({
+            @Result(property = "count", column = "count(*)", javaType = int.class)
+    })
+    int getPwd(UserBean userBean);
+
+    // 向数据库注册新用户
+    @Insert("INSERT INTO user (username,userpwd,annoyname) VALUES(#{username},#{userpwd},#{annoyname})")
+    void regist(UserBean userBean);
 
 }

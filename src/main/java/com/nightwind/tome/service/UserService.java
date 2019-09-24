@@ -23,4 +23,11 @@ public interface UserService {
     List<UserBean> getUserByUserId(int userid);
 
 
+
+    public int getPwd(UserBean userBean);
+
+    public int checkUserName(UserBean userBean);
+
+
+    public void regist(UserBean userBean);
 }
