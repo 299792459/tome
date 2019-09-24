@@ -30,6 +30,17 @@ public interface UserMapper {
     })
     List<UserBean> getUserByUserId(@Param("userid") int userid);
 
+    //通过userid查到对应的user
+    @Select(" SELECT *" +
+            " FROM user" +
+            " WHERE userid=#{userid}")
+    @Results({
+            @Result(property = "userid",column = "userid",javaType = int.class),
+            @Result(property = "username", column = "username", javaType = String.class),
+            @Result(property = "userpwd", column = "userpwd", javaType = String.class),
+            @Result(property = "annoyname", column = "annoyname", javaType = String.class)
+    })
+    UserBean getOneUserByUserId(@Param("userid") int userid);
 
 
     //查询用户名是否存在

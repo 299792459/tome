@@ -36,7 +36,7 @@ public class TomeApplicationTests {
     public void getAllCommentsbyLetterId()
     {
 
-        Map map=null;
+        List relist=new ArrayList();
 
         //List<Integer> lettersidlist=letterService.getLettersIdByUrl(currenturl);.intValue()
         List lettersidlist=new ArrayList();
@@ -46,8 +46,10 @@ public class TomeApplicationTests {
         {
             leti=(int)lettersidlist.get(i);
             System.out.println(leti);
-            map.put(i+"",commentService.getAllCommentsByLetterId(1));
-            System.out.println(map.get(i+""));
+            List<getAllCommentsByLetterIdBean> l=commentService.getAllCommentsByLetterId((int)lettersidlist.get(i));
+            System.out.println(l.size());
+            relist.add(l);
+            System.out.println(relist.toArray());
         }
 
         //return map;

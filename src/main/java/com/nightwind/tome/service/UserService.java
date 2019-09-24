@@ -1,6 +1,7 @@
 package com.nightwind.tome.service;
 
 import com.nightwind.tome.bean.UserBean;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface UserService {
      int getIdByUserName(String username);
 
      void regist(UserBean userBean);
+
+    UserBean getOneUserByUserId(int userid);
 }

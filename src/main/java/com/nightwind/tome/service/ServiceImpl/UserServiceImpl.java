@@ -51,4 +51,9 @@ public class UserServiceImpl implements UserService {
         userMapper.regist(userBean);
     }
 
+    @Override
+    public UserBean getOneUserByUserId(int userid) {
+        return userMapper.getOneUserByUserId(userid);
+    }
+
 }
