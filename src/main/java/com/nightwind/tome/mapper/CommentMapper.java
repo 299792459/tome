@@ -30,7 +30,7 @@ public interface CommentMapper {
             @Result(property = "replyletterid", column = "replyletterid", javaType = int.class),
             @Result(property = "replyuserid", column = "replyuserid", javaType = int.class)
     })
-    List<CommentBean> getAllCommentsByLetterId(@Param("replyletterid")int replyletterid);
+    List<CommentBean> getAllCommentsByLetterId(@Param("replyletterid") int replyletterid);
 
 
     //发表一条评论

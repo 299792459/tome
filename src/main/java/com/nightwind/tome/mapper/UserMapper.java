@@ -26,7 +26,7 @@ public interface UserMapper {
             @Result(property = "userid",column = "userid",javaType = int.class),
             @Result(property = "username", column = "username", javaType = String.class),
             @Result(property = "userpwd", column = "userpwd", javaType = String.class),
-            @Result(property = "annoyname", column = "annoyame", javaType = String.class)
+            @Result(property = "annoyname", column = "annoyname", javaType = String.class)
     })
     List<UserBean> getUserByUserId(@Param("userid") int userid);
 

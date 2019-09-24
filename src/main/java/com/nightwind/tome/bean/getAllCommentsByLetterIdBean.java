@@ -27,6 +27,7 @@ public class getAllCommentsByLetterIdBean {
         return annoyname;
     }
 
+
     public void setAnnoyname(String annoyname) {
         this.annoyname = annoyname;
     }

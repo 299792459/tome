@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -85,12 +86,15 @@ public class IndexController {
     @ResponseBody
     public Map<String,List<getAllCommentsByLetterIdBean>> getAllCommentsbyLetterId()
     {
+
         Map map=null;
         currenturl=getCurrenturl();
-        List<Integer> lettersidlist=letterService.getLettersIdByUrl(currenturl);
+        //List<Integer> lettersidlist=letterService.getLettersIdByUrl(currenturl);.intValue()
+        List lettersidlist=new ArrayList();
+        lettersidlist.add(1);
         for(int i=0;i<lettersidlist.size();i++)
         {
-            map.put(i+"",commentService.getAllCommentsByLetterId(lettersidlist.get(i).intValue()));
+            map.put(i+"",commentService.getAllCommentsByLetterId((int)lettersidlist.get(i)));
         }
 
         return map;
