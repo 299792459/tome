@@ -29,19 +29,8 @@ public class RegistController {
 
     @Autowired
     UserMapper userMapper;
-    //点击查询此url下所有留言对应的评论
-    @RequestMapping(value = "/regist")
-    @ResponseBody
-    public UserBean regist(@RequestBody Map map)
-    {
-        UserBean userBean=new UserBean();
-        userBean.setAnnoyname((String) map.get("annoyname"));
-        userBean.setAnnoyname((String) map.get("username"));
-        userBean.setAnnoyname((String) map.get("userpwd"));
+    //点击进入注册
 
-
-        return userBean;
-    }
 
 
 

@@ -22,11 +22,5 @@ public interface UserService {
     //通过id查询user
     List<UserBean> getUserByUserId(int userid);
 
-    //通过username查询user
-    String isUsernameExisted(String username);
-    //注册新用户
-    void addUser(UserBean userBean);
 
-    //登录
-    UserBean login(String username,String userpwd);
 }

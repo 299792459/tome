@@ -31,10 +31,6 @@ public class LoginController {
 
 
     //在客户端判断，如果为空则是登陆失败，不为空则把整个值存储起来。
-    @RequestMapping(value = "/login")
-    @ResponseBody
-    public UserBean login(@RequestBody Map map){
-        return userService.login(map.get("username").toString(),map.get("userpwd").toString());
-    }
+
 
 }
