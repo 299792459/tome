@@ -30,6 +30,7 @@ public class RegistController {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
     UserService userService;
     //点击进入注册
     @RequestMapping("/checkUserName")

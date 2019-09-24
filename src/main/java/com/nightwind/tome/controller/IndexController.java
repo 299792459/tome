@@ -98,28 +98,18 @@ public class IndexController {
 
     //点击发表留言
     @RequestMapping(value = "/addLetter")
-    //@ResponseBody  @RequestBody Map map
-    public void addLetter()
+    //@ResponseBody
+    public void addLetter(@RequestBody Map map)
     {
-        //LetterBean letterBean =new LetterBean();
-        //装载数据
-        //letterBean.setUserid();
-        //letterBean.setLettercontent((String)map.get("lettercontent"));
-        //letterBean.setLettertime((String)map.get("lettertime"));
-        //currenturl=getCurrenturl();
-        //letterBean.setLetterurl(currenturl);
-        //letterService.addLetter(letterBean);
-
         LetterBean letterBean =new LetterBean();
         //装载数据
-        int id= userService.getIdByUserName("km");
-        System.out.println(id);
-        letterBean.setUserid(id);
-        letterBean.setLettercontent("lettercontent");
-        letterBean.setLettertime("lettertime");
-        //currenturl=getCurrenturl();
-        letterBean.setLetterurl("currenturl");
+        letterBean.setUserid(userService.getIdByUserName((String)map.get("username")));
+        letterBean.setLettercontent((String)map.get("lettercontent"));
+        letterBean.setLettertime((String)map.get("lettertime"));
+        currenturl=getCurrenturl();
+        letterBean.setLetterurl(currenturl);
         letterService.addLetter(letterBean);
+
     }
 
 
