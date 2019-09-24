@@ -45,9 +45,11 @@ public class IndexController {
         currenturl= request.getScheme() //当前链接使用的协议
                 +"://" + request.getServerName()//服务器地址
                 + ":" + request.getServerPort() //端口号
-                + request.getContextPath() //应用名称，如果应用名称为
-                + request.getServletPath();//请求的相对url
+
+                + request.getContextPath(); //应用名称，如果应用名称为
+                //+ request.getServletPath();//请求的相对url
                 //+ "?" + request.getQueryString(); //请求参数
+
         return currenturl;
     }
 
@@ -113,7 +115,7 @@ public class IndexController {
         CommentBean commentBean =new CommentBean();
         //装载数据
         commentBean.setUserid((int)map.get("userid"));
-        commentBean.setCommentcontent((String)map.get("content"));
+        commentBean.setCommentcontent((String)map.get("commentcontent"));
         commentBean.setCommenttime((String)map.get("commenttime"));
         commentBean.setReplyletterid((int)map.get("replyletterid"));
         commentBean.setReplyuserid((int)map.get("replyuserid"));
