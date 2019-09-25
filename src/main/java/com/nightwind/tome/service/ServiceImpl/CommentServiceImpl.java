@@ -46,6 +46,8 @@ public class CommentServiceImpl implements CommentService {
         for (int j = 0; j < list.size(); j++) {
             getAllCommentsByLetterIdBean gb1=listnew.get(j);
 
+            gb1.setReplyuserid(list.get(j).getReplyuserid());
+            gb1.setCommentid(list.get(j).getCommentid());
             gb1.setCommentcontent(list.get(j).getCommentcontent());
             gb1.setCommenttime(list.get(j).getCommenttime());
 

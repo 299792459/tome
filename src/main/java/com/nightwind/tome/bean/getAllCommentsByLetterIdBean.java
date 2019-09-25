@@ -14,6 +14,42 @@ public class getAllCommentsByLetterIdBean {
     String commenttime;
     String replyannoyname;
 
+    int commentid;
+    int replyuserid;
+
+    public getAllCommentsByLetterIdBean(String annoyname, String commentcontent, String commenttime, String replyannoyname, int commentid, int replyuserid) {
+        this.annoyname = annoyname;
+        this.commentcontent = commentcontent;
+        this.commenttime = commenttime;
+        this.replyannoyname = replyannoyname;
+        this.commentid = commentid;
+        this.replyuserid = replyuserid;
+    }
+
+    public int getReplyuserid() {
+        return replyuserid;
+    }
+
+    public void setReplyuserid(int replyuserid) {
+        this.replyuserid = replyuserid;
+    }
+
+    public getAllCommentsByLetterIdBean(String annoyname, String commentcontent, String commenttime, String replyannoyname, int commentid) {
+        this.annoyname = annoyname;
+        this.commentcontent = commentcontent;
+        this.commenttime = commenttime;
+        this.replyannoyname = replyannoyname;
+        this.commentid = commentid;
+    }
+
+    public int getCommentid() {
+        return commentid;
+    }
+
+    public void setCommentid(int commentid) {
+        this.commentid = commentid;
+    }
+
     public getAllCommentsByLetterIdBean(){}
 
     public getAllCommentsByLetterIdBean(String annoyname, String commentcontent, String commenttime, String replyannoyname) {

@@ -1,8 +1,10 @@
 package com.nightwind.tome;
 
 import com.nightwind.tome.bean.getAllCommentsByLetterIdBean;
+import com.nightwind.tome.bean.getAllLettersByUrlBean;
 import com.nightwind.tome.mapper.UserMapper;
 import com.nightwind.tome.service.CommentService;
+import com.nightwind.tome.service.LetterService;
 import com.nightwind.tome.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,39 +23,11 @@ import java.util.Map;
 @SpringBootTest
 public class TomeApplicationTests {
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    CommentService commentService;
     @Test
     public void contextLoads() {
 
     }
 
-    @Test
-    //点击查询此url下所有留言对应的评论
-    @RequestMapping(value = "/getAllCommentsbyLetterId")
-    @ResponseBody
-    public void getAllCommentsbyLetterId()
-    {
 
-        List relist=new ArrayList();
-
-        //List<Integer> lettersidlist=letterService.getLettersIdByUrl(currenturl);.intValue()
-        List lettersidlist=new ArrayList();
-        lettersidlist.add(1);
-        int leti;
-        for(int i=0;i<lettersidlist.size();i++)
-        {
-            leti=(int)lettersidlist.get(i);
-            System.out.println(leti);
-            List<getAllCommentsByLetterIdBean> l=commentService.getAllCommentsByLetterId((int)lettersidlist.get(i));
-            System.out.println(l.size());
-            relist.add(l);
-            System.out.println(relist.toArray());
-        }
-
-        //return map;
-    }
 
 }

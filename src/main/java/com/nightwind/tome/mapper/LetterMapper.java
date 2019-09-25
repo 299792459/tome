@@ -27,10 +27,11 @@ public interface LetterMapper {
 
 
     //显示当前url下所有留言
-    @Select(" SELECT annoyname,lettercontent,lettertime" +
+    @Select(" SELECT letterid,annoyname,lettercontent,lettertime" +
             " FROM letter,user" +
             " WHERE user.userid=letter.userid AND letterurl=#{letterurl}")
     @Results({
+            @Result(property = "letterid", column = "letterid", javaType = int.class),
             @Result(property = "annoyname", column = "annoyname", javaType = String.class),
             @Result(property = "lettercontent",  column = "lettercontent", javaType = String.class),
             @Result(property = "lettertime", column = "lettertime", javaType = String.class)

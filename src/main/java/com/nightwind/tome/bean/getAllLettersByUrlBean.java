@@ -10,7 +10,32 @@ package com.nightwind.tome.bean;
  */
 public class getAllLettersByUrlBean {
 
+    int letterid;
     String annoyname;
+
+    public int getLetterid() {
+        return letterid;
+    }
+
+    public getAllLettersByUrlBean(int letterid, String annoyname, String lettercontent, String lettertime) {
+        this.letterid = letterid;
+        this.annoyname = annoyname;
+        this.lettercontent = lettercontent;
+        this.lettertime = lettertime;
+    }
+
+    public void setLetterid(int letterid) {
+        this.letterid = letterid;
+    }
+
+    public String getLettertime() {
+        return lettertime;
+    }
+
+    public void setLettertime(String lettertime) {
+        this.lettertime = lettertime;
+    }
+
     String lettercontent;
     String lettertime;
 

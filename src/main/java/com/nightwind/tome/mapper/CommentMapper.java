@@ -37,4 +37,8 @@ public interface CommentMapper {
     @Insert("INSERT into `comment`(userid,commentcontent,commenttime,replyletterid,replyuserid) " +
             "VALUES(#{userid}, #{commentcontent}, #{commenttime}, #{replyletterid}, #{replyuserid})")
     void addComment(CommentBean onecomment);
+
+    //删除评论
+    @Delete("delete from comment where commentid=#{commentid}")
+    void delete(@Param("commentid") int commentid);
 }

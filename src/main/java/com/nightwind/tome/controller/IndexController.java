@@ -30,8 +30,8 @@ import java.util.Map;
 @EnableAutoConfiguration
 public class IndexController {
 
-    @Autowired
-    HttpServletRequest request; //这里可以获取到request
+    //@Autowired
+     //这里可以获取到request
     @Autowired
     LetterService letterService;
     @Autowired
@@ -48,7 +48,7 @@ public class IndexController {
      * 然后主页显示展示该url下所有的评论
      * @return
      */
-    public String getCurrenturl(){
+    public String getCurrenturl(HttpServletRequest request){
         currenturl= request.getScheme() //当前链接使用的协议
                 +"://" + request.getServerName()//服务器地址
                 + ":" + request.getServerPort() //端口号
@@ -72,10 +72,10 @@ public class IndexController {
     //点击查询此url下所有留言
     @RequestMapping(value = "/getAllLettersByurl")
     @ResponseBody
-    public List<getAllLettersByUrlBean> getAllLettersByurl()
+    public List<getAllLettersByUrlBean> getAllLettersByurl(HttpServletRequest request)
     {
 
-        currenturl=getCurrenturl();
+        currenturl=getCurrenturl(request);
         System.out.println(currenturl);
         return letterService.getAllLettersByurl(currenturl);
 
@@ -84,11 +84,12 @@ public class IndexController {
     //点击查询此url下所有留言对应的评论
     @RequestMapping(value = "/getAllCommentsbyLetterId")
     @ResponseBody
-    public List getAllCommentsbyLetterId()
+    public List getAllCommentsbyLetterId(HttpServletRequest request)
     {
 
         List relist=new ArrayList();
-        currenturl=getCurrenturl();
+        currenturl=getCurrenturl(request);
+        System.out.println(currenturl);
         List<Integer> lettersidlist=letterService.getLettersIdByUrl(currenturl);
         //List lettersidlist=new ArrayList();
         //lettersidlist.add(1);
@@ -103,14 +104,14 @@ public class IndexController {
     //点击发表留言
     @RequestMapping(value = "/addLetter")
     //@ResponseBody
-    public void addLetter(@RequestBody Map map)
+    public void addLetter(@RequestBody Map map,HttpServletRequest request)
     {
         LetterBean letterBean =new LetterBean();
         //装载数据
         letterBean.setUserid(userService.getIdByUserName((String)map.get("username")));
         letterBean.setLettercontent((String)map.get("lettercontent"));
         letterBean.setLettertime((String)map.get("lettertime"));
-        currenturl=getCurrenturl();
+        currenturl=getCurrenturl(request);
         letterBean.setLetterurl(currenturl);
         letterService.addLetter(letterBean);
 
@@ -125,11 +126,11 @@ public class IndexController {
 
         CommentBean commentBean =new CommentBean();
         //装载数据
-        commentBean.setUserid((int)map.get("userid"));
+        commentBean.setUserid(userService.getIdByUserName((String)map.get("username")));
         commentBean.setCommentcontent((String)map.get("commentcontent"));
         commentBean.setCommenttime((String)map.get("commenttime"));
         commentBean.setReplyletterid((int)map.get("replyletterid"));
-        commentBean.setReplyuserid((int)map.get("replyuserid"));
+        commentBean.setReplyuserid(userService.getIdByUserName((String)map.get("replyusername")));
 
         commentService.addComment(commentBean);
 
